@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────── */
+/*  Design Tokens — Dark Mode Only                                 */
+/* ──────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Backgrounds */
+  --bg-base: #050510;
+  --bg-surface: #0a0a1a;
+  --bg-elevated: #0f0f23;
+  --bg-card: #111127;
+  --bg-card-hover: #16163a;
+
+  /* Foregrounds */
+  --fg-primary: #f0f0ff;
+  --fg-secondary: #a0a0c0;
+  --fg-muted: #606080;
+
+  /* Accents */
+  --accent-primary: #6366f1;
+  --accent-primary-glow: rgba(99, 102, 241, 0.15);
+  --accent-secondary: #818cf8;
+  --accent-cyan: #22d3ee;
+  --accent-emerald: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-rose: #fb7185;
+
+  /* Borders & Rings */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(99, 102, 241, 0.3);
+  --ring-focus: rgba(99, 102, 241, 0.5);
+
+  /* Gradients */
+  --gradient-card: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  --gradient-hero: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(34, 211, 238, 0.04) 100%
+  );
+  --gradient-sidebar: linear-gradient(
+    180deg,
+    #0a0a1a 0%,
+    #080818 100%
+  );
+
+  /* Spacing */
+  --sidebar-width: 220px;
+  --sidebar-collapsed: 64px;
+  --bottom-nav-height: 64px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  /* Theme Specific Global Glow (used in layout radial bg) */
+  --theme-glow: rgba(99,102,241,0.06);
+}
+
+/* ──────────────────────────────────────────────────────────────── */
+/*  Theme Overrides                                                */
+/* ──────────────────────────────────────────────────────────────── */
+
+:root[data-theme="midnight"] {
+  --bg-base: #070914;
+  --bg-surface: #0a0d1f;
+  --bg-elevated: #0d122b;
+  --bg-card: #0f1433;
+  --bg-card-hover: #141b44;
+  --theme-glow: rgba(79, 70, 229, 0.08); /* Deep indigo glow */
+  
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-default: rgba(255, 255, 255, 0.06);
+  
+  --gradient-sidebar: linear-gradient(180deg, #0a0d1f 0%, #070914 100%);
+}
+
+:root[data-theme="oled"] {
+  --bg-base: #000000;
+  --bg-surface: #000000;
+  --bg-elevated: #050505;
+  --bg-card: #080808;
+  --bg-card-hover: #111111;
+  --theme-glow: transparent; /* No ambient glow for OLED */
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  
+  --gradient-sidebar: linear-gradient(180deg, #000000 0%, #000000 100%);
+}
+
+:root[data-theme="purple"] {
+  --bg-base: #0c0514;
+  --bg-surface: #12071f;
+  --bg-elevated: #180929;
+  --bg-card: #1c0b31;
+  --bg-card-hover: #250f42;
+  --theme-glow: rgba(192, 38, 211, 0.05); /* Fuchsia glow */
+  
+  --accent-primary: #d946ef; /* Override primary accent to match theme */
+  --accent-primary-glow: rgba(217, 70, 239, 0.15);
+  --ring-focus: rgba(217, 70, 239, 0.5);
+  
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  
+  --gradient-sidebar: linear-gradient(180deg, #12071f 0%, #0c0514 100%);
+}
+
+/* ──────────────────────────────────────────────────────────────── */
+/*  Tailwind v4 Theme Bindings                                     */
+/* ──────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+
+  --color-fg-primary: var(--fg-primary);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-muted: var(--fg-muted);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-glow: var(--accent-primary-glow);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-glow: var(--border-glow);
+  --color-ring-focus: var(--ring-focus);
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+/* ──────────────────────────────────────────────────────────────── */
+/*  Base Styles                                                    */
+/* ──────────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--fg-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  transition: background-color 0.5s ease;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ring-focus);
+  outline-offset: 2px;
+}
+
+/* ──────────────────────────────────────────────────────────────── */
+/*  Utility Classes                                                */
+/* ──────────────────────────────────────────────────────────────── */
+
+.glass-card {
+  background: var(--gradient-card);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 
+    0 4px 24px -1px rgba(0, 0, 0, 0.25),
+    0 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+
+@keyframes wave {
+  0% { transform: rotate(0.0deg) }
+  10% { transform: rotate(14.0deg) }
+  20% { transform: rotate(-8.0deg) }
+  30% { transform: rotate(14.0deg) }
+  40% { transform: rotate(-4.0deg) }
+  50% { transform: rotate(10.0deg) }
+  60% { transform: rotate(0.0deg) }
+  100% { transform: rotate(0.0deg) }
+}
+
+.hover\:animate-wave:hover {
+  animation: wave 2.5s infinite;
+  transform-origin: 70% 70%;
+}
