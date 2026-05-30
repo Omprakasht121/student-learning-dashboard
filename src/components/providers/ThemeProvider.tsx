@@ -31,11 +31,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  // Prevent rendering context values until mounted (to match FOUC script)
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
